@@ -173,6 +173,9 @@ func (t *TLS) Provision(ctx caddy.Context) error {
 	magic := certmagic.New(t.certCache, certmagic.Config{
 		Storage: ctx.Storage(),
 		Logger:  t.logger,
+		OCSP: certmagic.OCSPConfig{
+			DisableStapling: true,
+		},
 	})
 	for _, loader := range t.certificateLoaders {
 		certs, err := loader.LoadCertificates()
